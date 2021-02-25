@@ -14,3 +14,11 @@ def topics(request):
     topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'journal_entries/topics.html', context)
+
+
+def topic(request, topic_id):
+    # like show in rails
+    topic = Topic.objects.get(id=topic_id)
+    entries = topic.entry_set.order_by('-date_added')
+    context = {'topic': topic, 'entries': entries}
+    return render(request, 'journal_entries/topic.html', context)

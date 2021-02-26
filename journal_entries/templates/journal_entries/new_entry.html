@@ -1,0 +1,14 @@
+{% extends "journal_entries/base.html" %}
+
+{% block content %}
+
+<p><a href="{% url 'journal_entries:topic' topic.id %}">{{ topic }}</a></p>
+
+<p>Add a new entry:</p>
+<form action="{% url 'journal_entries:new_entry' topic.id %}" method='post'>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button name='submit'>Add entry</button>
+</form>
+
+{% endblock content %}

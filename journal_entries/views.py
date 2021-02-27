@@ -42,6 +42,9 @@ def new_topic(request):
     else:
         form = TopicForm(data=request.POST)
         if form.is_valid():
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
             return redirect('journal_entries:topics')
 
     context = {'form': form}

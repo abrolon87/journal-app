@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
@@ -15,7 +16,8 @@ def index(request):
 @login_required
 def topics(request):
     # all topics
-    topics = Topic.objects.order_by('date_added')
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+
     context = {'topics': topics}
     return render(request, 'journal_entries/topics.html', context)
 
@@ -24,6 +26,10 @@ def topics(request):
 def topic(request, topic_id):
     # like show in rails
     topic = Topic.objects.get(id=topic_id)
+    # checks if topic belongs to current user
+    if topic.owner != request.user:
+        raise Http404
+
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic': topic, 'entries': entries}
     return render(request, 'journal_entries/topic.html', context)
@@ -64,6 +70,8 @@ def new_entry(request, topic_id):
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+    if topic.owner != request.user:
+        raise Http404
 
     if request.method != 'POST':
         form = EntryForm(instance=entry)

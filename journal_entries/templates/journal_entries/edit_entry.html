@@ -3,7 +3,7 @@
 
 {% block content %}
 
-  <p><a href="{% url 'journal_entries:topic' topic.id %}"{{ topic }}></a></p>
+  <p><a href="{% url 'journal_entries:topic' topic.id %}">{{ topic }}</a></p>
 
   <p>Edit entry:</p>
   <form action="{% url 'journal_entries:edit_entry' entry.id %}" method='post'>

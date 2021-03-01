@@ -14,7 +14,7 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
-        <a class="navbar-brand" href="{% url 'journal_entries:index'%}">Journal App</a>
+        <a href="{% url 'journal_entries:index' %}" class="navbar-brand">Journal App</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -22,7 +22,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a href="{% url 'journal_entries:topics'%}" class="nav-link">Topics</a>
+            <a href="{% url 'journal_entries:topics' %}" class="nav-link">Topics</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -57,19 +57,3 @@
 </html>
 
 
-<!-- before bootstrap  -->
-<!-- <p>
-  <a href="{% url 'journal_entries:index' %}">Journal App</a> |
-  <a href="{% url 'journal_entries:topics' %}">Topics</a> |
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }}! |
-    <a href="{% url 'users:logout' %}">Logout</a> |
-  {% else %}
-    <a href="{% url 'users:register' %}">Register</a> |
-    <a href="{% url 'users:login' %}">Log in</a>
-  {% endif %}
-</p>
-
-
-
- -->
